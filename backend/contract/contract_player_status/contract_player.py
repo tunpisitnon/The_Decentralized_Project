@@ -1,0 +1,1 @@
+from backend.app.app import web3

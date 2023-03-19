@@ -12,6 +12,7 @@ try:
     # set default account for the easy use of web3.eth.sendTransaction()
     web3.eth.defaultAccount = web3.eth.accounts[0]
 
+
 except Exception as e:
     print(e)
 
