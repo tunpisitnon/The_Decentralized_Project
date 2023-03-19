@@ -2,10 +2,11 @@ from flask import Flask
 from web3 import Web3
 from backend.config import config
 
-app = Flask(__name__)
-app.config.from_object(config)
-
 try:
+
+    app = Flask(__name__)
+    app.config.from_object(config)
+
     web3 = Web3(Web3.HTTPProvider(app.config['GANACHE_URL']))
 
     # set default account for the easy use of web3.eth.sendTransaction()
@@ -13,8 +14,6 @@ try:
 
 except Exception as e:
     print(e)
-
-
 
 # accounts = web3.eth.accounts
 # address = "0x08347F4c07ae85E4A9ab31a02e962993a9a55930"
