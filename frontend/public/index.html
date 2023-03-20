@@ -120,10 +120,12 @@
             text: 'รอสักครู่ ระบบกำลังทำการตัดต้นไม้',
             background: '#fff1c1',
         })
+        const sound = new Audio('../assets/sound/axe.mp3');
+        sound.play();
         count = 0;
         const interval = setInterval(() => {
             count++;
-            if (count === 10) {
+            if (count === 5) {
                 clearInterval(interval);
                 toast.fire({
                     iconHtml: '<img src="https://cdn-icons-png.flaticon.com/512/928/928746.png" width="70px">',
