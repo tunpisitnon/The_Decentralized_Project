@@ -1,2 +1,1 @@
-from backend.app import app
-from backend.app.app import web3
+from app.app import web3
