@@ -70,7 +70,6 @@ def spending_wood():
         return {"status": "you don't have enough wood"}
 
 
-
 @app.route('/coin/raindrop', methods=['GET'])
 def raindrop():
     _address = request.args.get('address')
@@ -78,6 +77,8 @@ def raindrop():
     return jsonify({
         'raindrop': raindrops
     })
+
+
 @app.route('/coin/restore_mana/<address>/<value>', methods=['GET'])
 def restore_mana(address, value):
     _address = address
