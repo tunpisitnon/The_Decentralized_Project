@@ -1,16 +1,11 @@
-from backend import app
-from backend.app import web3
+from backend.app.app import app, web3
+from backend.config import config
 
 
-class Contract_Wood:
+class Wood_Contract:
+
     def __init__(self):
-        self.address = app.config['Tree_address']
-        self.abi = app.config['Tree_abi']
-        self.contract = web3.eth.contract(address=self.address, abi=self.abi)
-        self.ownerAddress = "0x6AAEd57e79C25F5552DAe735f32e06D7bb7925c6"
+        self.wood_contract = web3.eth.contract(address=config.Tree_address, abi=config.Tree_abi)
 
-    def get_total_logs(self):
-        return self.contract.functions.balanceOf(self.ownerAddress).call()
-
-    def get_player_data(self, address):
-        return self.contract.functions.player(address).call()
+    def hello(self):
+        return 'yes? from Wood_Contract'

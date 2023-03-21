@@ -1,12 +1,10 @@
-from backend.app import app
+from backend.app.app import app, web3
+from backend.config import config
 
 
-class Contract_Coin:
+class Coin_Contract:
     def __init__(self):
-        self.address = app.config['rain_address']
-        self.abi = app.config['rain_abi']
-        self.contract = web3.eth.contract(address=self.address, abi=self.abi)
-        self.ownerAddress = "0x6AAEd57e79C25F5552DAe735f32e06D7bb7925c6"
+        self.coin_contract = web3.eth.contract(address=config.rain_address, abi=config.rain_abi)
 
-    def getBalance(self):
-        return self.contract.functions.balanceOf(self.ownerAddress).call()
+    def hello(self):
+        return 'yes? from Coin_Contract'
