@@ -70,5 +70,33 @@ def spending_wood():
         return {"status": "you don't have enough wood"}
 
 
+
+@app.route('/coin/raindrop', methods=['GET'])
+def raindrop():
+    _address = request.args.get('address')
+    raindrops = coin_contract.get_balance(_address)
+    return jsonify({
+        'raindrop': raindrops
+    })
+@app.route('/coin/restore_mana/<address>/<value>', methods=['GET'])
+def restore_mana(address, value):
+    _address = address
+    raindrops = coin_contract.get_balance(_address)
+    if raindrops < int(value):
+        return jsonify({'status': 'You do not have enough raindrops'})
+    else:
+        tx_spend = coin_contract.spend(_address, value)
+        tx_restore_mana = wood_contract.restore_mana(_address, value)
+
+        raindrops_after_spend = coin_contract.get_balance(_address)
+        player_status = wood_contract.check_player_status(_address)
+
+    return jsonify({'raindrop_left': raindrops_after_spend,
+                    'tx_spend_hash': tx_spend.hex(),
+                    'tx_restore_mana_hash': tx_restore_mana,
+                    'player_status': player_status['player_status'],
+                    })
+
+
 if __name__ == '__main__':
     app.run(debug=True)
