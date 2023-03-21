@@ -19,3 +19,7 @@ class Coin_Contract:
     def transfer(self, address, value):
         tx_hash = self.coin_contract.functions.transfer(address, int(value)).transact({'from': self.owner_wallet})
         return tx_hash
+
+    def spend(self, address, value):
+        tx_hash = self.coin_contract.functions.spend(address, int(value)).transact({'from': self.owner_wallet})
+        return tx_hash
