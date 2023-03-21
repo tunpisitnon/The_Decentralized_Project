@@ -8,6 +8,12 @@ app.config.from_object(config)
 web3 = Web3(Web3.HTTPProvider(app.config['GANACHE_URL']))
 web3.eth.default_account = web3.eth.accounts[0]
 
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+
 # accounts = web3.eth.accounts
 # address = "0x08347F4c07ae85E4A9ab31a02e962993a9a55930"
 # print(accounts)
