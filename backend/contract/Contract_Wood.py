@@ -46,9 +46,16 @@ class Wood_Contract:
         if player_status['player_status']['wood'] < int(value) or player_status['player_status']['wood'] == 0:
             return {'status': 'You do not have enough wood'}
         else:
-            results = self.wood_contract.functions.spending_wood(address, int(value)).transact({'from': self.owner_wallet})
+            results = self.wood_contract.functions.spending_wood(address, int(value)).transact(
+                {'from': self.owner_wallet})
             object = {
                 'status': 'success',
                 "tx_hash": results.hex(),
             }
             return object
+
+    def restore_mana(self, address, _value):
+        tx = self.wood_contract.functions.restore_mana(address, int(_value)).transact({'from': self.owner_wallet})
+        return tx.hex()
+
+
