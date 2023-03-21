@@ -1,1 +1,2 @@
-from backend.contract import contract_coins, contract_wood, contract_player_status
+from backend.contract.Contract_Wood import Contract_Wood
+from backend.contract.Contract_Coin import Contract_Coin

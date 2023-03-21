@@ -34,8 +34,51 @@
                         "type": "uint256"
                     }
                 ],
-                "name": "Transfer",
+                "name": "cutting_wood",
                 "type": "event"
+            },
+            {
+                "inputs": [
+                    {
+                        "internalType": "address",
+                        "name": "_to",
+                        "type": "address"
+                    }
+                ],
+                "name": "Cutting_Wood",
+                "outputs": [
+                    {
+                        "internalType": "bool",
+                        "name": "success",
+                        "type": "bool"
+                    }
+                ],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "inputs": [
+                    {
+                        "internalType": "address",
+                        "name": "_from",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "_value",
+                        "type": "uint256"
+                    }
+                ],
+                "name": "Spending_Wood",
+                "outputs": [
+                    {
+                        "internalType": "bool",
+                        "name": "success",
+                        "type": "bool"
+                    }
+                ],
+                "stateMutability": "nonpayable",
+                "type": "function"
             },
             {
                 "inputs": [
@@ -58,6 +101,29 @@
             },
             {
                 "inputs": [],
+                "name": "defaultPlayer",
+                "outputs": [
+                    {
+                        "internalType": "uint256",
+                        "name": "mana",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "current_Log",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "total_Log",
+                        "type": "uint256"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [],
                 "name": "name",
                 "outputs": [
                     {
@@ -67,6 +133,48 @@
                     }
                 ],
                 "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [
+                    {
+                        "internalType": "address",
+                        "name": "",
+                        "type": "address"
+                    }
+                ],
+                "name": "player",
+                "outputs": [
+                    {
+                        "internalType": "uint256",
+                        "name": "mana",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "current_Log",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "total_Log",
+                        "type": "uint256"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [
+                    {
+                        "internalType": "address",
+                        "name": "_address",
+                        "type": "address"
+                    }
+                ],
+                "name": "setPlayer",
+                "outputs": [],
+                "stateMutability": "nonpayable",
                 "type": "function"
             },
             {
@@ -99,16 +207,21 @@
                 "inputs": [
                     {
                         "internalType": "address",
-                        "name": "_to",
+                        "name": "_address",
                         "type": "address"
                     },
                     {
                         "internalType": "uint256",
-                        "name": "_value",
+                        "name": "mana",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "log",
                         "type": "uint256"
                     }
                 ],
-                "name": "transfer",
+                "name": "update_player_data",
                 "outputs": [
                     {
                         "internalType": "bool",
@@ -120,7 +233,7 @@
                 "type": "function"
             }
         ],
-        "address": "0x3328358128832A260C76A4141e19E2A943CD4B6D"
+        "address": "0xcb6370adC6b53F52a2b5DA339a4A00A964293fa7"
     },
     "rainCoins": {
         "abi": [
@@ -244,67 +357,5 @@
             }
         ],
         "address": "0x5e17b14ADd6c386305A32928F985b29bbA34Eff5"
-    },
-    "player": {
-        "abi": [
-            {
-                "inputs": [
-                    {
-                        "internalType": "address",
-                        "name": "",
-                        "type": "address"
-                    }
-                ],
-                "name": "player",
-                "outputs": [
-                    {
-                        "internalType": "uint256",
-                        "name": "mana",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "woodLog",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "totalWood",
-                        "type": "uint256"
-                    }
-                ],
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "inputs": [
-                    {
-                        "internalType": "address",
-                        "name": "_address",
-                        "type": "address"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "_mana",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "_woodLog",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "_totalWood",
-                        "type": "uint256"
-                    }
-                ],
-                "name": "setPlayer",
-                "outputs": [],
-                "stateMutability": "nonpayable",
-                "type": "function"
-            }
-        ],
-        "address": "0xe2899bddFD890e320e643044c6b95B9B0b84157A"
     }
 }
