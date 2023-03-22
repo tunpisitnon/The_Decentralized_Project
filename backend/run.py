@@ -24,9 +24,10 @@ def wood_supply_left():
     return jsonify({'wood supply left': wood_contract.wood_supply_left()})
 
 
-@app.route('/wood/balance/<address>', methods=['GET'])
-def wood_balance(address):
-    _address = address
+@app.route('/wood/balance', methods=['POST'])
+def wood_balance():
+    request_data = request.get_json()
+    _address = request_data['address']
     return jsonify({'wood balance': wood_contract.get_balance(_address)})
 
 
@@ -43,9 +44,10 @@ def initial_player():
         return jsonify({'initial_player': 'Player already exists'})
 
 
-@app.route('/wood/check_player_status/<address>', methods=['GET'])
-def check_player_status(address):
-    _address = address
+@app.route('/wood/check_player_status/', methods=['POST'])
+def check_player_status():
+    request_data = request.get_json()
+    _address = request_data['address']
     return jsonify(wood_contract.check_player_status(_address))
 
 
@@ -71,13 +73,31 @@ def spending_wood():
         return {"status": "you don't have enough wood"}
 
 
-@app.route('/coin/raindrop/<address>', methods=['GET'])
-def raindrop(address):
-    _address = address
+@app.route('/coin/raindrop/', methods=['POST'])
+def raindrop():
+    request_data = request.get_json()
+    _address = request_data['address']
     raindrops = coin_contract.get_balance(_address)
     return jsonify({
         'raindrop': raindrops
     })
+
+
+@app.route('/coin/total_supply', methods=['GET'])
+def raindrop_total_supply():
+    return jsonify({'total raindrop supply': coin_contract.get_total_supply()})
+
+
+@app.route('/coin/supply_left', methods=['GET'])
+def raindrop_supply_left():
+    return jsonify({'raindrop supply left': coin_contract.coin_supply_left()})
+
+
+@app.route('/coin/balance', methods=['POST'])
+def raindrop_balance():
+    request_data = request.get_json()
+    _address = request_data['address']
+    return jsonify({'raindrop balance': coin_contract.get_balance(_address)})
 
 
 @app.route('/coin/restore_mana', methods=['POST'])

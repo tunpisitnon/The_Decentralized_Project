@@ -13,7 +13,7 @@ class Coin_Contract:
     def get_balance(self, address):
         return self.coin_contract.functions.balanceOf(address).call()
 
-    def wood_supply_left(self):
+    def coin_supply_left(self):
         return self.coin_contract.functions.balanceOf(self.owner_wallet).call()
 
     def transfer(self, address, value):
