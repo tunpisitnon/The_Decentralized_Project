@@ -61,13 +61,25 @@ def cutting_wood():
 @app.route('/wood/spending_wood/', methods=['POST'])
 def spending_wood():
     request_data = request.get_json()
+    wood_total_supply = wood_contract.get_total_supply()
+    wood_supply_left = wood_contract.wood_supply_left()
+
     _address, _value = request_data['address'], int(request_data['value'])
+
+    wood_left_percentage = round(100 - ((wood_supply_left / wood_total_supply) * 100), 4)
+    wood_left_percentage = round((wood_left_percentage * 100) + 1)
+
     result = wood_contract.Spending_Wood(_address, _value)
+
     if result['status'] == 'success':
-        tx = coin_contract.transfer(_address, _value)
+
+        new_value = wood_left_percentage * _value
+        tx = coin_contract.transfer(_address, new_value)
+
         return jsonify({'spending wood': str(_value) + ' woods',
+                        'Raindrops': new_value,
                         'tx_hash': tx.hex(),
-                        'Raindrops': coin_contract.get_balance(_address)
+                        'Raindrops_from_contract': coin_contract.get_balance(_address)
                         })
     else:
         return {"status": "you don't have enough wood"}
@@ -120,6 +132,16 @@ def restore_mana():
                     'tx_restore_mana_hash': tx_restore_mana,
                     'player_status': player_status['player_status'],
                     })
+
+
+@app.route('/check_price_token', methods=['GET'])
+def check_price_token():
+    wood_total_supply = wood_contract.get_total_supply()
+    wood_supply_left = wood_contract.wood_supply_left()
+
+    wood_left_percentage = round(100 - ((wood_supply_left / wood_total_supply) * 100), 4)
+    wood_left_percentage = round((wood_left_percentage * 100) + 1)
+    return jsonify({'wood_left_percentage': wood_left_percentage})
 
 
 if __name__ == '__main__':
