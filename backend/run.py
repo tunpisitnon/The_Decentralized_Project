@@ -30,14 +30,13 @@ def wood_balance(address):
     return jsonify({'wood balance': wood_contract.get_balance(_address)})
 
 
-@app.route('/wood/initial_player/<address>', methods=['GET'])
-def initial_player(address):
-    _address = address
-    check_player_status = wood_contract.check_player_status(_address)
-    print(check_player_status)
-    if check_player_status['player_status']['mana'] == 0:
+@app.route('/wood/initial_player', methods=['POST'])
+def initial_player():
+    request_data = request.get_json()
+    _address = request_data['address']
+    result = wood_contract.check_player_status(_address)
+    if result['player_status']['mana'] == 0:
         init_result = wood_contract.initial_player(_address)
-
         return jsonify({'initial_player': 'Player created successfully',
                         'tx_hash': init_result})
     else:
@@ -50,19 +49,21 @@ def check_player_status(address):
     return jsonify(wood_contract.check_player_status(_address))
 
 
-@app.route('/wood/cutting_wood/<address>', methods=['GET'])
-def cutting_wood(address):
-    _address = address
+@app.route('/wood/cutting_wood', methods=['POST'])
+def cutting_wood():
+    request_data = request.get_json()
+    _address = request_data['address']
     return jsonify({'cutting wood': wood_contract.cutting_wood(_address)})
 
 
-@app.route('/wood/spending_wood/', methods=['GET'])
+@app.route('/wood/spending_wood/', methods=['POST'])
 def spending_wood():
-    _address, _value = request.args.get('address'), request.args.get('value')
+    request_data = request.get_json()
+    _address, _value = request_data['address'], int(request_data['value'])
     result = wood_contract.Spending_Wood(_address, _value)
     if result['status'] == 'success':
         tx = coin_contract.transfer(_address, _value)
-        return jsonify({'spending wood': _value + ' woods',
+        return jsonify({'spending wood': str(_value) + ' woods',
                         'tx_hash': tx.hex(),
                         'Raindrops': coin_contract.get_balance(_address)
                         })
@@ -70,24 +71,26 @@ def spending_wood():
         return {"status": "you don't have enough wood"}
 
 
-@app.route('/coin/raindrop', methods=['GET'])
-def raindrop():
-    _address = request.args.get('address')
+@app.route('/coin/raindrop/<address>', methods=['GET'])
+def raindrop(address):
+    _address = address
     raindrops = coin_contract.get_balance(_address)
     return jsonify({
         'raindrop': raindrops
     })
 
 
-@app.route('/coin/restore_mana/<address>/<value>', methods=['GET'])
-def restore_mana(address, value):
-    _address = address
+@app.route('/coin/restore_mana', methods=['POST'])
+def restore_mana():
+    request_data = request.get_json()
+    _address = request_data['address']
+    _value = int(request_data['value'])
     raindrops = coin_contract.get_balance(_address)
-    if raindrops < int(value):
+    if raindrops < int(_value):
         return jsonify({'status': 'You do not have enough raindrops'})
     else:
-        tx_spend = coin_contract.spend(_address, value)
-        tx_restore_mana = wood_contract.restore_mana(_address, value)
+        tx_spend = coin_contract.spend(_address, _value)
+        tx_restore_mana = wood_contract.restore_mana(_address, _value)
 
         raindrops_after_spend = coin_contract.get_balance(_address)
         player_status = wood_contract.check_player_status(_address)

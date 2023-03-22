@@ -270,7 +270,7 @@
 		"type": "function"
 	}
 ],
-        "address": "0x42Af7adD09Cd49D5C66D27fE09A51ADFd8c59AAd"
+        "address": "0x09d2D2E117271851593F6612cE1044D793588fCb"
     },
     "rainCoins": {
         "abi": [
@@ -430,6 +430,6 @@
                 "type": "function"
             }
         ],
-        "address": "0xDd616Cc5C5C9F81228A530528C253B9F6DE7927B"
+        "address": "0xcb87e49B9E2343F93AeC02FD4ad32aeBBcb04B62"
     }
 }
