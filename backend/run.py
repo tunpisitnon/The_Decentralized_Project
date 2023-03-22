@@ -144,5 +144,15 @@ def check_price_token():
     return jsonify({'wood_left_percentage': wood_left_percentage})
 
 
+@app.route('/wood/check_token_symbol', methods=['GET'])
+def check_token_symbol():
+    return jsonify({'token_symbol': wood_contract.get_token_symbol()})
+
+
+@app.route('/coin/check_token_symbol', methods=['GET'])
+def check_coin_symbol():
+    return jsonify({'token_symbol': coin_contract.get_token_symbol()})
+
+
 if __name__ == '__main__':
     app.run(debug=True)

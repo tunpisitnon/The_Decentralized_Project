@@ -23,3 +23,11 @@ class Coin_Contract:
     def spend(self, address, value):
         tx_hash = self.coin_contract.functions.spend(address, int(value)).transact({'from': self.owner_wallet})
         return tx_hash
+
+    def get_token_symbol(self):
+        symbol = self.coin_contract.functions.symbol().call()
+        name = self.coin_contract.functions.name().call()
+        return {
+            'symbol': symbol,
+            'name': name
+        }

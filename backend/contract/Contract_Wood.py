@@ -58,4 +58,10 @@ class Wood_Contract:
         tx = self.wood_contract.functions.restore_mana(address, int(_value)).transact({'from': self.owner_wallet})
         return tx.hex()
 
-
+    def get_token_symbol(self):
+        symbol = self.wood_contract.functions.symbol().call()
+        name = self.wood_contract.functions.name().call()
+        return {
+            'symbol': symbol,
+            'name': name
+        }
