@@ -1,7 +1,7 @@
-from backend.contract.Contract_Wood import Wood_Contract
-from backend.contract.Contract_Coin import Coin_Contract
+from contract.Contract_Wood import Wood_Contract
+from contract.Contract_Coin import Coin_Contract
 
-from backend.app.app import app
+from app.app import app
 
 from flask import jsonify, request
 
@@ -141,7 +141,7 @@ def check_price_token():
 
     wood_left_percentage = round(100 - ((wood_supply_left / wood_total_supply) * 100), 4)
     wood_left_percentage = round((wood_left_percentage * 100) + 1)
-    return jsonify({'wood_left_percentage': wood_left_percentage})
+    return jsonify({'1 wood': str(wood_left_percentage) + " raindrops"})
 
 
 @app.route('/wood/check_token_symbol', methods=['GET'])

@@ -1,6 +1,6 @@
 from flask import Flask
 from web3 import Web3
-from backend.config import config
+from config import config
 
 
 app = Flask(__name__)

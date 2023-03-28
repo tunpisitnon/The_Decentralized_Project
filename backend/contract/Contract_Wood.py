@@ -1,5 +1,5 @@
-from backend.app.app import web3
-from backend.config import config
+from app.app import web3
+from config import config
 
 
 class Wood_Contract:
