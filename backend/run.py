@@ -3,7 +3,7 @@ from contract.Contract_Coin import Coin_Contract
 
 from app.app import app
 
-from flask import jsonify, request
+from flask import jsonify, request, make_response
 
 wood_contract = Wood_Contract()
 coin_contract = Coin_Contract()
@@ -38,17 +38,24 @@ def initial_player():
     result = wood_contract.check_player_status(_address)
     if result['player_status']['mana'] == 0:
         init_result = wood_contract.initial_player(_address)
-        return jsonify({'initial_player': 'Player created successfully',
-                        'tx_hash': init_result})
+        return jsonify({
+                'initial_player': 'Player created successfully',
+                'initial': True,
+                'tx_hash': init_result
+            })
     else:
-        return jsonify({'initial_player': 'Player already exists'})
+        return jsonify({'initial_player': 'Player already exists',
+        'initial': False})
 
 
 @app.route('/wood/check_player_status/', methods=['POST'])
 def check_player_status():
     request_data = request.get_json()
     _address = request_data['address']
-    return jsonify(wood_contract.check_player_status(_address))
+    response_data = wood_contract.check_player_status(_address)
+    response = make_response(jsonify(response_data))
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
 
 
 @app.route('/wood/cutting_wood', methods=['POST'])
@@ -97,19 +104,19 @@ def raindrop():
 
 @app.route('/coin/total_supply', methods=['GET'])
 def raindrop_total_supply():
-    return jsonify({'total raindrop supply': coin_contract.get_total_supply()})
+    return jsonify({'total_raindrop_supply': coin_contract.get_total_supply()})
 
 
 @app.route('/coin/supply_left', methods=['GET'])
 def raindrop_supply_left():
-    return jsonify({'raindrop supply left': coin_contract.coin_supply_left()})
+    return jsonify({'raindrop_supply_left': coin_contract.coin_supply_left()})
 
 
 @app.route('/coin/balance', methods=['POST'])
 def raindrop_balance():
     request_data = request.get_json()
     _address = request_data['address']
-    return jsonify({'raindrop balance': coin_contract.get_balance(_address)})
+    return jsonify({'raindrop_balance': coin_contract.get_balance(_address)})
 
 
 @app.route('/coin/restore_mana', methods=['POST'])
@@ -141,17 +148,14 @@ def check_price_token():
 
     wood_left_percentage = round(100 - ((wood_supply_left / wood_total_supply) * 100), 4)
     wood_left_percentage = round((wood_left_percentage * 100) + 1)
-    return jsonify({'1 wood': str(wood_left_percentage) + " raindrops"})
+    return jsonify({'oneWoodToRainDrop': wood_left_percentage})
 
 
 @app.route('/wood/check_token_symbol', methods=['GET'])
 def check_token_symbol():
-    return jsonify({'token_symbol': wood_contract.get_token_symbol()})
+    return jsonify({'wood_token_symbol': wood_contract.get_token_symbol(),
+                    'raindrop_token_symbol': coin_contract.get_token_symbol()})
 
-
-@app.route('/coin/check_token_symbol', methods=['GET'])
-def check_coin_symbol():
-    return jsonify({'token_symbol': coin_contract.get_token_symbol()})
 
 
 if __name__ == '__main__':

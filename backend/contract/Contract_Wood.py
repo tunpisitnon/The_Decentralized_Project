@@ -1,5 +1,8 @@
 from app.app import web3
 from config import config
+from eth_utils import (
+    to_checksum_address,
+)
 
 
 class Wood_Contract:
@@ -22,7 +25,9 @@ class Wood_Contract:
         return tx_hash.hex()
 
     def check_player_status(self, address):
-        result = self.wood_contract.functions.player(address).call()
+        address_checked = to_checksum_address(address)
+
+        result = self.wood_contract.functions.player(address_checked).call()
         object = {
             'player_status': {
                 'mana': result[0],
