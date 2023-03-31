@@ -19,7 +19,6 @@ class Wood_Contract:
 
     def initial_player(self, address):
         tx_hash = self.wood_contract.functions.initial_player(address).transact({'from': self.owner_wallet})
-
         return tx_hash.hex()
 
     def check_player_status(self, address):

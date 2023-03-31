@@ -16,12 +16,12 @@ def hello_world():
 
 @app.route('/wood/total_supply', methods=['GET'])
 def wood():
-    return jsonify({'total wood supply': wood_contract.get_total_supply()})
+    return jsonify({'total_wood_supply': wood_contract.get_total_supply()})
 
 
 @app.route('/wood/supply_left', methods=['GET'])
 def wood_supply_left():
-    return jsonify({'wood supply left': wood_contract.wood_supply_left()})
+    return jsonify({'wood_supply_left': wood_contract.wood_supply_left()})
 
 
 @app.route('/wood/balance', methods=['POST'])
