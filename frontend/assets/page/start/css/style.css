@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Sofia&effect=neon|outline|emboss|shadow-multiple');
+
+* {
+    font-family: 'Kanit', sans-serif;
+}
+body{
+    background-color:  #aa7951;
+}
+.container {
+    margin-top: 50px;
+    
+}
+h1 {
+    font-size: 4rem;
+    margin-bottom: 2rem;
+}
+
+img {
+    width: 70%;
+    margin-bottom: 2rem;
+}
+.text-font{
+    font-family: "Sofia", sans-serif;
+    font-size: 65px;
+}

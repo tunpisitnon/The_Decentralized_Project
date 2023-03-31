@@ -1,0 +1,121 @@
+<link rel="stylesheet" href="../assets/page/home/assets/vendors/mdi/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="../assets/page/home/assets/css/style.css">
+
+<body>
+    <div class="container-scroller">
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+            <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
+                <h1 class="sidebar-brand brand-logo text-white" href="index.html">Noah World</h1>
+                <h1 class="sidebar-brand brand-logo-mini text-white " href="index.html">N</h1>
+            </div>
+            <ul class="nav">
+                <li class="nav-item profile">
+                    <div class="profile-desc">
+                        <div class="profile-pic">
+                            <div class="count-indicator">
+                                <div id="img-profile"  class="img-xs rounded-circle"></div>
+                            </div>
+                            <div class="profile-name">
+                                <h5 class="mb-0 font-weight-normal" id="account"></h5>
+                                <span id="balance"></span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item nav-category" style="font-size: 20px;">
+                    <span class="nav-link">Menu</Menu></span>
+                </li>
+                <li class="nav-item menu-items" >
+                    <span class="nav-link" href="index.html" >
+                        <span class="menu-icon ">
+                            <i class="mdi mdi-tree" style="color: #0eb132; font-size: 30px;"></i>
+                        </span>
+                        <span class="menu-title" id="Supply_left"></span>
+                    </span>
+                </li>
+                <li class="nav-item menu-items">
+                    <span class="nav-link" href="index.html">
+                        <span class="menu-icon">
+                            <i class="mdi mdi-currency-usd" style=" font-size: 30px;"></i>
+                        </span>
+                        <span class="menu-title" id="Check_price"></span>
+                    </span>
+                </li>
+                <li class="nav-item menu-items" onclick="swap()">
+                    <span  class="nav-link" >
+                        <span class="menu-icon">
+                            <i class="mdi mdi-coin" style="color: #fff126; font-size: 30px;"></i>
+                        </span>
+                        <span class="menu-title">Swap</span>
+                    </span>
+                </li>
+                <li class="nav-item menu-items" onclick="manaShop()">
+                    <span  class="nav-link" >
+                        <span class="menu-icon">
+                            <i class="mdi mdi-store" style=" font-size: 25px;"></i>
+                        </span>
+                        <span class="menu-title">ซื้อค่าพลัง</span>
+                    </span>
+                </li>
+                <li class="nav-item menu-items" onclick="showStatus()">
+                    <span  class="nav-link" >
+                        <span class="menu-icon">
+                            <i class="mdi mdi-briefcase-outline" style=" font-size: 28px;"></i>
+                        </span>
+                        <span class="menu-title">กระเป๋า</span>
+                    </span>
+                </li>
+
+            </ul>
+        </nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_navbar.html -->
+            <nav class="navbar p-0 fixed-top d-flex flex-row">
+                <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
+                    <h1 class="navbar-brand brand-logo-mini text-white">N</h1>
+                </div>
+                <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
+                    <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                        <span class="mdi mdi-menu"></span>
+                    </button>
+                    <ul class="navbar-nav navbar-nav-right">
+                        <li class="nav-item border-left ">
+                            <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
+                                <div class="navbar-profile">
+                                    <button id="connect-btn" class="btn btn-primary" onclick="connectMetamask()">Connect Metamask</button>
+                                    <div id="img-profile2" class="img-xs rounded-circle"></div>
+                                    <p class="mb-0 d-none d-sm-block navbar-profile-name" id="account2"></p>
+                                    <p class="mb-0 d-none d-sm-block navbar-profile-name" id="account3"></p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                        <span class="mdi mdi-format-line-spacing"></span>
+                    </button>
+                </div>
+            </nav>
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper" >
+                    <div  class="row d-flex flex-column justify-content-center align-items-center">
+                        <div style="width: 1000px;" class="row d-flex flex-column justify-content-center align-items-center mt-5">
+                            <div class="row">
+                                <div class="col-7 mt-5 ">
+                                    <img class=" float-right" src="../assets/page/home/image/jack.png" alt="Wood Farm" width="300px">
+                                </div>
+                                <div  class="col-5 mt-5 ">
+                                    <img style="position: absolute; bottom: 0; left: 0;" src="../assets/page/home/image/lumber.png" alt="Wood Farm" width="300px">
+                                </div>
+                                <div class="d-flex flex-column justify-content-center align-items-center mt-5 mt-5 ">
+                                    <button id="cutTrees" class="btn btn-danger mt-2 w-50" onclick="cutTree()">ตัดต้นไม้</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
