@@ -53,6 +53,8 @@ def check_player_status():
     request_data = request.get_json()
     _address = request_data['address']
     response_data = wood_contract.check_player_status(_address)
+    Raindrops = coin_contract.get_balance(_address)
+    response_data['player_status']['Raindrops'] = Raindrops
     response = make_response(jsonify(response_data))
     response.headers['Access-Control-Allow-Origin'] = '*'
     return response

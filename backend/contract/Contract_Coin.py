@@ -17,11 +17,13 @@ class Coin_Contract:
         return self.coin_contract.functions.balanceOf(self.owner_wallet).call()
 
     def transfer(self, address, value):
-        tx_hash = self.coin_contract.functions.transfer(address, int(value)).transact({'from': self.owner_wallet})
+        address_checked = to_checksum_address(address)
+        tx_hash = self.coin_contract.functions.transfer(address_checked, int(value)).transact({'from': self.owner_wallet})
         return tx_hash
 
     def spend(self, address, value):
-        tx_hash = self.coin_contract.functions.spend(address, int(value)).transact({'from': self.owner_wallet})
+        address_checked = to_checksum_address(address)
+        tx_hash = self.coin_contract.functions.spend(address_checked, int(value)).transact({'from': self.owner_wallet})
         return tx_hash
 
     def get_token_symbol(self):
