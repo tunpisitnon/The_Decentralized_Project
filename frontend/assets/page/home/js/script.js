@@ -65,9 +65,7 @@ async function connectMetamask() {
                         background: '#9DC08B',
                     })
                 }
-            }).then(() => {
-            console.log('เชื่อมต่อ Metamask สำเร็จ');
-        })
+            })
 
         const balance = await ethereum.request({method: 'eth_getBalance', params: [account_user, 'latest']});
         const balanceNumber = Number.parseFloat(ethers.utils.formatEther(balance));
@@ -251,7 +249,6 @@ function swap() {
                                 })
                             }).then(r => r.json())
                                 .then((data) => {
-                                    console.log(data);
                                     if (data.status === 'success') {
                                         Swal.fire({
                                             title: 'แลกเปลี่ยน WOOD',
@@ -303,6 +300,39 @@ function manaShop() {
                     imageUrl: 'https://cdn-icons-png.flaticon.com/512/7320/7320924.png',
                     imageWidth: 100,
                     imageHeight: 100,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const RaindropInput = document.getElementById('RaindropInput').value;
+                        if (RaindropInput <= Raindrops) {
+                            fetch('http://127.0.0.1:5000/coin/restore_mana', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    "address": account_user,
+                                    "value": RaindropInput
+                                })
+                            }).then(r => r.json())
+                                .then((data) => {
+                                    if (data.status === 'success') {
+                                        Swal.fire({
+                                            title: 'แลกเปลี่ยน Raindrops',
+                                            text: 'แลกเปลี่ยน Raindrops เป็น Mana สำเร็จ',
+                                            icon: 'success',
+                                            confirmButtonText: 'ตกลง'
+                                        })
+                                    } else {
+                                        Swal.fire({
+                                            title: 'แลกเปลี่ยน Raindrops',
+                                            text: 'แลกเปลี่ยน Raindrops เป็น Mana ไม่สำเร็จ',
+                                            icon: 'error',
+                                            confirmButtonText: 'ตกลง'
+                                        })
+                                    }
+                                })
+                        }
+                    }
                 })
             })
     });

@@ -68,33 +68,39 @@ def cutting_wood():
     })
 
 
-@app.route('/wood/spending_wood/', methods=['POST'])
+@app.route('/wood/spending_wood', methods=['POST'])
 def spending_wood():
     request_data = request.get_json()
     wood_total_supply = wood_contract.get_total_supply()
     wood_supply_left = wood_contract.wood_supply_left()
-
     _address, _value = request_data['address'], int(request_data['value'])
-
     wood_left_percentage = round(100 - ((wood_supply_left / wood_total_supply) * 100), 4)
     wood_left_percentage = round((wood_left_percentage * 100) + 1)
-
     result = wood_contract.Spending_Wood(_address, _value)
 
     if result['status'] == 'success':
-
         new_value = wood_left_percentage * _value
         tx = coin_contract.transfer(_address, new_value)
 
-        return jsonify({'status': 'success',
-                        'spending wood': str(_value) + ' woods',
-                        'Raindrops': new_value,
-                        'tx_hash': tx.hex(),
-                        'Raindrops_from_contract': coin_contract.get_balance(_address)
-                        })
+        if tx:
+            return jsonify({
+                'status': 'success',
+                'spending_wood': f'{_value} WOOD',
+                'Raindrops': new_value,
+                'tx_hash': tx.hex(),
+                'Raindrops_balance': coin_contract.get_balance(_address)
+            })
+        else:
+            return jsonify({
+                'message': 'Failed to transfer Raindrops. Please try again later.',
+                'status': 'error'
+            })
     else:
-        return {"status": "you don't have enough wood",
-                'status_code': 'error'}
+        return jsonify({
+            'message': "You don't have enough WOOD.",
+            'status': 'error'
+        })
+
 
 
 @app.route('/coin/raindrop/', methods=['POST'])
@@ -131,7 +137,9 @@ def restore_mana():
     _value = int(request_data['value'])
     raindrops = coin_contract.get_balance(_address)
     if raindrops < int(_value):
-        return jsonify({'status': 'You do not have enough raindrops'})
+        return jsonify({
+            'status': 'error',
+            'message': 'You do not have enough raindrops'})
     else:
         tx_spend = coin_contract.spend(_address, _value)
         tx_restore_mana = wood_contract.restore_mana(_address, _value)
@@ -139,11 +147,13 @@ def restore_mana():
         raindrops_after_spend = coin_contract.get_balance(_address)
         player_status = wood_contract.check_player_status(_address)
 
-    return jsonify({'raindrop_left': raindrops_after_spend,
-                    'tx_spend_hash': tx_spend.hex(),
-                    'tx_restore_mana_hash': tx_restore_mana,
-                    'player_status': player_status['player_status'],
-                    })
+    return jsonify({
+        'status': 'success',
+        'raindrop_left': raindrops_after_spend,
+        'tx_spend_hash': tx_spend.hex(),
+        'tx_restore_mana_hash': tx_restore_mana,
+        'player_status': player_status['player_status'],
+    })
 
 
 @app.route('/check_price_token', methods=['GET'])
