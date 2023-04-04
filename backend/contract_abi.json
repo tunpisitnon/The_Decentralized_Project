@@ -1,6 +1,6 @@
 {
     "tree": {
-        "abi": [
+        "abi":	[
 	{
 		"inputs": [
 			{
@@ -67,9 +67,9 @@
 		"name": "initial_player",
 		"outputs": [
 			{
-				"internalType": "bool",
+				"internalType": "string",
 				"name": "",
-				"type": "bool"
+				"type": "string"
 			}
 		],
 		"stateMutability": "nonpayable",
@@ -183,6 +183,11 @@
 				"internalType": "uint256",
 				"name": "total_Log",
 				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "is_created",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -238,6 +243,11 @@
 				"internalType": "uint256",
 				"name": "total_Log",
 				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "is_created",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -270,7 +280,7 @@
 		"type": "function"
 	}
 ],
-        "address": "0xecF5eB33d9e8F39a566141866e451bE1ea17fcd7"
+        "address": "0x622252Ae97c94Fee1805DAAE07D0fcAA6F2578ee"
     },
     "rainCoins": {
         "abi": [

@@ -36,16 +36,14 @@ def initial_player():
     request_data = request.get_json()
     _address = request_data['address']
     result = wood_contract.check_player_status(_address)
-    if result['player_status']['mana'] == 0:
-        init_result = wood_contract.initial_player(_address)
-        return jsonify({
-                'initial_player': 'Player created successfully',
-                'initial': True,
-                'tx_hash': init_result
-            })
+    if result['player_status']['is_created'] is True:
+        return jsonify({'is_created': result['player_status']['is_created'],
+                        'message': 'Player already created'})
     else:
-        return jsonify({'initial_player': 'Player already exists',
-        'initial': False})
+        return jsonify({
+            'is_created': result['player_status']['is_created'],
+            'message': 'Player created',
+            'tx_hash': wood_contract.initial_player(_address)})
 
 
 @app.route('/wood/check_player_status/', methods=['POST'])
@@ -64,7 +62,10 @@ def check_player_status():
 def cutting_wood():
     request_data = request.get_json()
     _address = request_data['address']
-    return jsonify({'cutting wood': wood_contract.cutting_wood(_address)})
+    return jsonify({
+        'status': 'success',
+        'cutting wood': wood_contract.cutting_wood(_address)
+    })
 
 
 @app.route('/wood/spending_wood/', methods=['POST'])
@@ -85,13 +86,15 @@ def spending_wood():
         new_value = wood_left_percentage * _value
         tx = coin_contract.transfer(_address, new_value)
 
-        return jsonify({'spending wood': str(_value) + ' woods',
+        return jsonify({'status': 'success',
+                        'spending wood': str(_value) + ' woods',
                         'Raindrops': new_value,
                         'tx_hash': tx.hex(),
                         'Raindrops_from_contract': coin_contract.get_balance(_address)
                         })
     else:
-        return {"status": "you don't have enough wood"}
+        return {"status": "you don't have enough wood",
+                'status_code': 'error'}
 
 
 @app.route('/coin/raindrop/', methods=['POST'])
@@ -157,7 +160,6 @@ def check_price_token():
 def check_token_symbol():
     return jsonify({'wood_token_symbol': wood_contract.get_token_symbol(),
                     'raindrop_token_symbol': coin_contract.get_token_symbol()})
-
 
 
 if __name__ == '__main__':

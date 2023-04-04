@@ -1,5 +1,6 @@
 from app.app import web3
 from config import config
+from eth_utils import to_checksum_address
 
 
 class Coin_Contract:
@@ -11,7 +12,8 @@ class Coin_Contract:
         return self.coin_contract.functions.totalSupply().call()
 
     def get_balance(self, address):
-        return self.coin_contract.functions.balanceOf(address).call()
+        address_checked = to_checksum_address(address)
+        return self.coin_contract.functions.balanceOf(address_checked).call()
 
     def coin_supply_left(self):
         return self.coin_contract.functions.balanceOf(self.owner_wallet).call()

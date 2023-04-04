@@ -5,7 +5,7 @@ from flask_cors import CORS
 
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 app.config.from_object(config)
 
 web3 = Web3(Web3.HTTPProvider(config.GANACHE_URL))
