@@ -2,7 +2,7 @@ import json
 
 
 class config:
-    GANACHE_URL = 'HTTP://127.0.0.1:7545'
+    GANACHE_URL = 'HTTP://127.0.0.1:8545'
 
     ABI_FILE = json.load(open('.\\contract_abi.json', 'r'))
 

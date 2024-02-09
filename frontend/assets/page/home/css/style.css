@@ -21126,10 +21126,18 @@ div.tagsinput {
       width: 100%; } }
 
 .content-wrapper {
-  background: #000000;
-  padding: 1.875rem 1.75rem;
-  width: 100%;
-  -webkit-flex-grow: 1;
-  flex-grow: 1; }
+        background-image: url('https://scontent.fbkk5-5.fna.fbcdn.net/v/t1.15752-9/341021696_188412677328229_2484407037715973576_n.png?_nc_cat=100&ccb=1-7&_nc_sid=ae9488&_nc_ohc=BD2gBb20rc8AX-MIfcP&_nc_ht=scontent.fbkk5-5.fna&oh=03_AdQIyj1Mqx7k-YA4jUxpQMEIuwwZnn3i-gxrEAP1IrgaYg&oe=646369AA');
+        background-size: cover;
+        background-position: center;
+        padding: 1.875rem 1.75rem;
+        width: 100%;
+        -webkit-flex-grow: 1;
+        flex-grow: 1; 
+        
+      }
 
 /*# sourceMappingURL=maps/style.css.map */
+.test{
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 1;
+}

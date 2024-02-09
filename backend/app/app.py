@@ -1,6 +1,6 @@
 from flask import Flask
 from web3 import Web3
-from config import config
+from config import onfig
 from flask_cors import CORS
 
 
